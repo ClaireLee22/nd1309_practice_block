@@ -10,7 +10,7 @@ class Block {
 
 	constructor(data){
 		this.id = 0;
-        this.nonce = 144444;
+        this.nonce = 14444;
       	this.body = data;
       	this.hash = "";
     }
@@ -27,8 +27,17 @@ class Block {
       	// Use this to create a temporary reference of the class object
       	let self = this;
         //Implement your code here
-        
-    }
+        var promise = new Promise(function(resolve, reject) {
+          const hash = SHA256(JSON.stringify(self))
+          if (hash) {
+            resolve({hash: hash});
+          }
+          else {
+            reject(Error("It broke"));
+          }
+       }); 
+        return promise  
+   }
 }
 
 // Exporting the class Block to be reuse in other files
